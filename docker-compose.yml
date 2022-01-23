@@ -1,0 +1,9 @@
+version: "3.8"
+services:
+
+  app:
+    image: denoland/deno:alpine-1.18.0
+    command: deno run --watch app.ts
+    volumes:
+      - ./:/usr/src
+    working_dir: /usr/src
