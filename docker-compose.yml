@@ -3,7 +3,9 @@ services:
 
   app:
     image: denoland/deno:alpine-1.18.0
-    command: deno run --watch app.ts
+    command: deno run --allow-net --watch app/app.ts
     volumes:
-      - ./:/usr/src
+      - ./:/usr/src/
+    ports:
+      - 8000:8000
     working_dir: /usr/src
