@@ -2,5 +2,6 @@
 [ ] - use classes in controller?
 [ ] - parse url params
 [ ] - add services
+[ ] - add validation
 [ ] - add mongo or mysql/sqlite
 [ ] - testing
