@@ -1,18 +1,21 @@
-import { Application, Context } from "https://deno.land/x/oak/mod.ts";
+import { Application } from "https://deno.land/x/oak/mod.ts"
+import { routeNotFound, errorHandler } from "./errors.ts"
 import { logger } from "./logger.ts"
 import router from "./router.ts"
 
-const app = new Application();
-
-// Routes
-app.use(router.routes());
-app.use(router.allowedMethods());
+const app = new Application()
 
 // Logger
-app.use(logger);
+app.use(logger)
 
-app.use((ctx: Context) => {
-  ctx.response.body = "Hello World!";
-});
+// Errors
+app.use(errorHandler)
 
-await app.listen({ port: 8000 });
+// Routes
+app.use(router.routes())
+app.use(router.allowedMethods())
+
+// not found
+app.use(routeNotFound)
+
+await app.listen({ port: 8000 })
