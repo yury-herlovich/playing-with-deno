@@ -1,7 +1,7 @@
 - [x] - error handling (404, catch)
 - [x] - use classes in controller?
-- [ ] - parse url params
+- [x] - parse url params
 - [ ] - add validation
 - [ ] - add services
-- [ ] - add mongo or mysql/sqlite
+- [ ] - add mongo
 - [ ] - unit and e2e testing

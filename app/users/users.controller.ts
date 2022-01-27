@@ -1,4 +1,10 @@
-import { Context, httpErrors } from "https://deno.land/x/oak/mod.ts"
+import { httpErrors } from "https://deno.land/x/oak/mod.ts"
+import { Context, ContextWithIdParam, User } from '../typing.ts'
+
+const users: User[] = [
+  { id: 1, name: 'Yury', role: 'admin' },
+]
+
 
 class UsersController {
   // GET /users
@@ -7,10 +13,20 @@ class UsersController {
   }
 
   // GET /users/:id
-  get(_context: Context) {
-    const err = new httpErrors.NotFound("User not found")
-    throw err
-    // context.response.body = "Find user"
+  get(context: ContextWithIdParam) {
+    const userId = parseInt(context.params?.id)
+
+    if (userId === undefined || isNaN(userId)) {
+      throw new httpErrors.BadRequest("Wrong user ID")
+    }
+
+    const user = users.find(u => u.id === userId)
+
+    if (!user) {
+      throw new httpErrors.NotFound("User not found")
+    }
+
+    context.response.body = user
   }
 
   // POST /users
@@ -19,17 +35,17 @@ class UsersController {
   }
 
   // DELETE /users/:id
-  remove(context: Context) {
+  remove(context: ContextWithIdParam) {
     context.response.body = "Remove user"
   }
 
   // PATCH /users/:id
-  update(context: Context) {
+  update(context: ContextWithIdParam) {
     context.response.body = "Update user"
   }
 
   // PUT /users/:id
-  replace(context: Context) {
+  replace(context: ContextWithIdParam) {
     context.response.body = "Replace user"
   }
 }
