@@ -21,5 +21,5 @@ export async function errorHandler(ctx: Context, next: Function) {
 }
 
 export function routeNotFound(_ctx: Context, _next: Function) {
-  throw new httpErrors.NotFound("Page not found")
+  throw new httpErrors.NotFound("Endpoint not found")
 }
