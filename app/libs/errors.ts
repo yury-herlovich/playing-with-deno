@@ -1,4 +1,4 @@
-import { Context, HttpError, httpErrors, isHttpError } from "https://deno.land/x/oak/mod.ts"
+import { Context, HttpError, httpErrors, isHttpError } from 'https://deno.land/x/oak/mod.ts'
 
 export async function errorHandler(ctx: Context, next: Function) {
   try {
@@ -7,7 +7,7 @@ export async function errorHandler(ctx: Context, next: Function) {
     let error: HttpError = err
 
     if (!isHttpError(err)) {
-      error = new httpErrors.InternalServerError("Internal server error")
+      error = new httpErrors.InternalServerError('Internal server error')
     }
 
     // TODO: error logging
@@ -21,5 +21,5 @@ export async function errorHandler(ctx: Context, next: Function) {
 }
 
 export function routeNotFound(_ctx: Context, _next: Function) {
-  throw new httpErrors.NotFound("Endpoint not found")
+  throw new httpErrors.NotFound('Endpoint not found')
 }

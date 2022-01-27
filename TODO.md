@@ -1,7 +1,9 @@
 - [x] - error handling (404, catch)
 - [x] - use classes in controller?
 - [x] - parse url params
-- [ ] - add validation
+- [x] - add validation
 - [ ] - add services
 - [ ] - add mongo
 - [ ] - unit and e2e testing
+- [ ] - health-check
+- [ ] - package management in Deno

@@ -1,7 +1,7 @@
-import { Application } from "https://deno.land/x/oak/mod.ts"
-import { routeNotFound, errorHandler } from "./libs/errors.ts"
-import { logger } from "./libs/logger.ts"
-import router from "./router.ts"
+import { Application } from 'https://deno.land/x/oak/mod.ts'
+import { routeNotFound, errorHandler } from './libs/errors.ts'
+import { logger } from './libs/logger.ts'
+import router from './router.ts'
 
 const app = new Application()
 
