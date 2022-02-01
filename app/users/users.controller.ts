@@ -1,11 +1,7 @@
 import { httpErrors } from 'https://deno.land/x/oak/mod.ts'
 import FastestValidator from 'https://esm.sh/fastest-validator@1'
-import { Context, ContextWithIdParam, User } from '../typing.ts'
-
-const users: User[] = [
-  { id: 1, name: 'Yury', role: 'admin' },
-]
-
+import { Context, ContextWithIdParam } from '../typing.ts'
+import usersService from './users.service.ts'
 
 class UsersController {
   // GET /users
@@ -21,7 +17,7 @@ class UsersController {
       throw new httpErrors.BadRequest('Wrong user ID')
     }
 
-    const user = users.find(u => u.id === userId)
+    const user = usersService.getById(userId)
 
     if (!user) {
       throw new httpErrors.NotFound('User not found')
@@ -36,13 +32,16 @@ class UsersController {
     const check = v.compile({
       name: { type: 'string', min: 3, max: 255 },
       role: { type: 'string', enum: ['admin', 'user'], default: 'user'},
+      age:  { type: 'number', integer: true, positive: true, min: 0, max:99, convert: true },
     })
 
-    const user = await (context.request.body()).value
-    const isValid = check(user)
+    const payload = await (context.request.body()).value
+    const isValid = check(payload)
     if (isValid !== true) {
       throw new httpErrors.BadRequest('Validation Error')
     }
+
+    const user = usersService.add(payload)
 
     context.response.body = user
   }
