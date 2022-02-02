@@ -1,4 +1,4 @@
-import { Application } from 'https://deno.land/x/oak/mod.ts'
+import { Application } from "./deps.ts";
 import { routeNotFound, errorHandler } from './libs/errors.ts'
 import { logger } from './libs/logger.ts'
 import router from './router.ts'

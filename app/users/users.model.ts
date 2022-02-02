@@ -1,4 +1,4 @@
-import { httpErrors } from "https://deno.land/x/oak/mod.ts";
+import { httpErrors } from "../deps.ts";
 import { User, InsertableUser } from "../typing.ts";
 
 class UsersModel {

@@ -5,7 +5,7 @@
 - [x] - add services
 - [x] - get all endpoint
 - [x] - DELETE
-- [ ] - package management in Deno
+- [x] - package management in Deno
 - [ ] - add mongo
 - [ ] - PATCH
 - [ ] - PUT

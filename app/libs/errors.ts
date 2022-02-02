@@ -1,4 +1,4 @@
-import { Context, HttpError, httpErrors, isHttpError } from 'https://deno.land/x/oak/mod.ts'
+import { Context, HttpError, httpErrors, isHttpError } from '../deps.ts'
 
 export async function errorHandler(ctx: Context, next: Function) {
   try {

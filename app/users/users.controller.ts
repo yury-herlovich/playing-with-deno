@@ -1,5 +1,4 @@
-import { httpErrors } from 'https://deno.land/x/oak/mod.ts'
-import FastestValidator from 'https://esm.sh/fastest-validator@1'
+import { FastestValidator, httpErrors } from "../deps.ts";
 import { Context, ContextWithIdParam } from '../typing.ts'
 import usersService from './users.service.ts'
 

@@ -1,4 +1,4 @@
-import { Context } from 'https://deno.land/x/oak/mod.ts'
+import { Context } from "../deps.ts";
 
 // Logger
 export async function logger (ctx: Context, next: Function) {

@@ -1,4 +1,4 @@
-import { Context as oakContext } from 'https://deno.land/x/oak/mod.ts'
+import { Context as oakContext } from './deps.ts'
 
 // general Context without params
 export type Context = oakContext
