@@ -2,8 +2,12 @@
 - [x] - use classes in controller?
 - [x] - parse url params
 - [x] - add validation
-- [ ] - add services
-- [ ] - add mongo
-- [ ] - unit and e2e testing
-- [ ] - health-check
+- [x] - add services
+- [x] - get all endpoint
+- [x] - DELETE
 - [ ] - package management in Deno
+- [ ] - add mongo
+- [ ] - PATCH
+- [ ] - PUT
+- [ ] - health-check
+- [ ] - unit and e2e testing

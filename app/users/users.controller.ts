@@ -6,7 +6,8 @@ import usersService from './users.service.ts'
 class UsersController {
   // GET /users
   getAll(context: Context) {
-    context.response.body = 'List of users'
+    const users = usersService.getall()
+    context.response.body = users
   }
 
   // GET /users/:id
@@ -48,7 +49,15 @@ class UsersController {
 
   // DELETE /users/:id
   remove(context: ContextWithIdParam) {
-    context.response.body = 'Remove user'
+    const userId = parseInt(context.params?.id)
+
+    if (userId === undefined || isNaN(userId)) {
+      throw new httpErrors.BadRequest('Wrong user ID')
+    }
+
+    const _result = usersService.remove(userId)
+
+    context.response.body = ''
   }
 
   // PATCH /users/:id

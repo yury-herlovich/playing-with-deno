@@ -3,14 +3,20 @@ import UsersModel from './users.model.ts'
 
 class UsersService {
   getById(userId: number): User | undefined {
-    const user = UsersModel.getById(userId)
-    return user
+    return UsersModel.getById(userId)
+  }
+
+  getall(): User[] {
+    return UsersModel.getAll()
   }
 
   add(data: InsertableUser): User {
-    const user = UsersModel.add(data)
+    return UsersModel.add(data)
 
-    return user
+  }
+
+  remove(userId: number): boolean {
+    return UsersModel.remove(userId)
   }
 }
 
