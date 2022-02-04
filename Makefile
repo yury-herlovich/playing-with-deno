@@ -1,5 +1,5 @@
 run:
-	docker-compose up app
+	docker-compose up
 
 debug:
-	docker-compose -f docker-compose.yml -f docker-compose.debug.yml up app
+	docker-compose -f docker-compose.yml -f docker-compose.debug.yml up

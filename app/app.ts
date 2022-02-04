@@ -2,6 +2,7 @@ import { Application } from "./deps.ts";
 import { routeNotFound, errorHandler } from './libs/errors.ts'
 import { logger } from './libs/logger.ts'
 import router from './router.ts'
+import db from './libs/db.ts'
 
 const app = new Application()
 
@@ -18,4 +19,5 @@ app.use(router.allowedMethods())
 // not found
 app.use(routeNotFound)
 
+await db.connect()
 await app.listen({ port: 8000 })

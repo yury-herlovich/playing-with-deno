@@ -4,20 +4,20 @@ import usersService from './users.service.ts'
 
 class UsersController {
   // GET /users
-  getAll(context: Context) {
-    const users = usersService.getall()
+  async getAll(context: Context) {
+    const users = await usersService.getAll()
     context.response.body = users
   }
 
   // GET /users/:id
-  get(context: ContextWithIdParam) {
-    const userId = parseInt(context.params?.id)
+  async get(context: ContextWithIdParam) {
+    const userId = context.params?.id
 
-    if (userId === undefined || isNaN(userId)) {
+    if (userId === undefined) {
       throw new httpErrors.BadRequest('Wrong user ID')
     }
 
-    const user = usersService.getById(userId)
+    const user = await usersService.getById(userId)
 
     if (!user) {
       throw new httpErrors.NotFound('User not found')
@@ -41,22 +41,24 @@ class UsersController {
       throw new httpErrors.BadRequest('Validation Error')
     }
 
-    const user = usersService.add(payload)
+    const user = await usersService.add(payload)
 
+    context.response.status = 201
     context.response.body = user
   }
 
   // DELETE /users/:id
-  remove(context: ContextWithIdParam) {
-    const userId = parseInt(context.params?.id)
+  async remove(context: ContextWithIdParam) {
+    const userId = context.params?.id
 
-    if (userId === undefined || isNaN(userId)) {
+    if (userId === undefined) {
       throw new httpErrors.BadRequest('Wrong user ID')
     }
 
-    const _result = usersService.remove(userId)
+    const _result = await usersService.remove(userId)
 
-    context.response.body = ''
+    context.response.status = 204
+    // context.response.body = ''
   }
 
   // PATCH /users/:id

@@ -8,4 +8,14 @@ services:
       - ./:/usr/src/
     ports:
       - 8000:8000
+    links:
+      - db
     working_dir: /usr/src
+
+  db:
+    image: mongo:4.4-focal
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+    logging:
+      driver: none

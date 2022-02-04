@@ -1,4 +1,4 @@
-import { Context as oakContext } from './deps.ts'
+import { Bson, Context as oakContext } from './deps.ts'
 
 // general Context without params
 export type Context = oakContext
@@ -8,10 +8,10 @@ export type ContextWithParams<T> = oakContext & { params: T }
 export type ContextWithIdParam = ContextWithParams<{ id: string }>
 
 export interface User {
-  id: number
+  _id: Bson.ObjectId;
   name: string
   role: 'admin' | 'user'
   age: number
 }
 
-export type InsertableUser = Omit<User, 'id'>
+export type InsertableUser = Omit<User, '_id'>
