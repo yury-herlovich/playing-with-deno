@@ -6,8 +6,10 @@
 - [x] - get all endpoint
 - [x] - DELETE
 - [x] - package management in Deno
-- [ ] - add mongo
+- [x] - add mongo
+- [x] - PUT
+- [ ] - error logging
 - [ ] - PATCH
-- [ ] - PUT
 - [ ] - health-check
 - [ ] - unit and e2e testing
+- [ ] - binary, production deploy

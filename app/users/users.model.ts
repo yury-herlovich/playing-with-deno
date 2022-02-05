@@ -1,4 +1,4 @@
-import { Bson, Collection, httpErrors } from "../deps.ts";
+import { Bson, Collection } from "../deps.ts";
 import { User, InsertableUser } from "../typing.ts";
 import db from '../libs/db.ts'
 
@@ -13,41 +13,25 @@ class UsersModel {
     return this._collection
   }
 
-  async getById(userId: string): Promise<User | undefined> {
-    const user = await this.collection.findOne({ _id: new Bson.ObjectId(userId) })
-
-    if (!user) {
-      throw new httpErrors.NotFound('user not found')
-    }
-
-    return user
+  getById(userId: string): Promise<User | undefined> {
+    return this.collection.findOne({ _id: new Bson.ObjectId(userId) })
   }
 
-  async getAll(): Promise<User[]> {
-    const users = await this.collection.find({}).toArray()
-
-    return users
+  getAll(): Promise<User[]> {
+    return this.collection.find({}).toArray()
   }
 
-  async add(data: InsertableUser): Promise<User> {
+  async add(data: InsertableUser): Promise<User | undefined> {
     const userId = await this.collection.insertOne(data)
-    const user = await this.collection.findOne({ _id: userId })
-
-    if (!user) {
-      throw new Error('something is really wrong')
-    }
-
-    return user
+    return this.collection.findOne({ _id: userId })
   }
 
-  async remove(userId: string): Promise<boolean> {
-    const removeCount = await this.collection.deleteOne({ _id: new Bson.ObjectId(userId) })
+  remove(userId: string): Promise<number> {
+    return this.collection.deleteOne({ _id: new Bson.ObjectId(userId) })
+  }
 
-    if (removeCount < 1) {
-      throw new httpErrors.BadRequest('User not found')
-    }
-
-    return true
+  replace(userId: string, data: InsertableUser): Promise<User | undefined> {
+    return this.collection.findAndModify({ _id: new Bson.ObjectId(userId) }, { update: data, new: true })
   }
 }
 

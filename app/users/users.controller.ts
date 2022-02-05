@@ -3,6 +3,17 @@ import { Context, ContextWithIdParam } from '../typing.ts'
 import usersService from './users.service.ts'
 
 class UsersController {
+  private userValidationSchema = {
+    name: { type: 'string', min: 3, max: 255 },
+    role: { type: 'string', enum: ['admin', 'user'], default: 'user'},
+    age:  { type: 'number', integer: true, positive: true, min: 0, max:99, convert: true },
+  }
+  private validator: FastestValidator
+
+  constructor() {
+    this.validator = new FastestValidator()
+  }
+
   // GET /users
   async getAll(context: Context) {
     const users = await usersService.getAll()
@@ -11,12 +22,7 @@ class UsersController {
 
   // GET /users/:id
   async get(context: ContextWithIdParam) {
-    const userId = context.params?.id
-
-    if (userId === undefined) {
-      throw new httpErrors.BadRequest('Wrong user ID')
-    }
-
+    const userId = this.getUserId(context)
     const user = await usersService.getById(userId)
 
     if (!user) {
@@ -28,15 +34,11 @@ class UsersController {
 
   // POST /users
   async add(context: Context) {
-    const v = new FastestValidator();
-    const check = v.compile({
-      name: { type: 'string', min: 3, max: 255 },
-      role: { type: 'string', enum: ['admin', 'user'], default: 'user'},
-      age:  { type: 'number', integer: true, positive: true, min: 0, max:99, convert: true },
-    })
-
     const payload = await (context.request.body()).value
+
+    const check = this.validator.compile(this.userValidationSchema)
     const isValid = check(payload)
+
     if (isValid !== true) {
       throw new httpErrors.BadRequest('Validation Error')
     }
@@ -49,16 +51,10 @@ class UsersController {
 
   // DELETE /users/:id
   async remove(context: ContextWithIdParam) {
-    const userId = context.params?.id
+    const userId = this.getUserId(context)
 
-    if (userId === undefined) {
-      throw new httpErrors.BadRequest('Wrong user ID')
-    }
-
-    const _result = await usersService.remove(userId)
-
+    await usersService.remove(userId)
     context.response.status = 204
-    // context.response.body = ''
   }
 
   // PATCH /users/:id
@@ -67,8 +63,33 @@ class UsersController {
   }
 
   // PUT /users/:id
-  replace(context: ContextWithIdParam) {
-    context.response.body = 'Replace user'
+  async replace(context: ContextWithIdParam) {
+    const userId = this.getUserId(context)
+    const payload = await (context.request.body()).value
+
+    const check = this.validator.compile(this.userValidationSchema)
+    const isValid = check(payload)
+
+    if (isValid !== true) {
+      throw new httpErrors.BadRequest('Validation Error')
+    }
+
+    const user = await usersService.replace(userId, payload)
+
+    context.response.body = user
+  }
+
+  /**
+   * Gets and validates ID from url params
+   */
+  private getUserId(context: ContextWithIdParam): string {
+    const userId = context.params?.id
+
+    if (userId === undefined) {
+      throw new httpErrors.BadRequest('Wrong user ID')
+    }
+
+    return userId
   }
 }
 
