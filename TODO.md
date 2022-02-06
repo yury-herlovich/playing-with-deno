@@ -8,8 +8,9 @@
 - [x] - package management in Deno
 - [x] - add mongo
 - [x] - PUT
-- [ ] - error logging
+- [x] - error logging
 - [ ] - PATCH
 - [ ] - health-check
 - [ ] - unit and e2e testing
+- [ ] - validation errors
 - [ ] - binary, production deploy

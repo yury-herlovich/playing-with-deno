@@ -1,16 +1,17 @@
 import { Context, HttpError, httpErrors, isHttpError } from '../deps.ts'
+import { logError } from "./logger.ts";
 
 export async function errorHandler(ctx: Context, next: Function) {
   try {
     await next()
   } catch (err) {
+    logError(err)
+
     let error: HttpError = err
 
     if (!isHttpError(err)) {
       error = new httpErrors.InternalServerError('Internal server error')
     }
-
-    // TODO: error logging
 
     ctx.response.body = {
       error: error.message,

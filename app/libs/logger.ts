@@ -13,3 +13,7 @@ export async function logger (ctx: Context, next: Function) {
     JSON.stringify(ctx.response.body)
   )
 }
+
+export function logError (err: Error) {
+  console.log(`${err.name}:`, err.message)
+}
