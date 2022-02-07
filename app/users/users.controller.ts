@@ -1,18 +1,13 @@
-import { FastestValidator, httpErrors } from "../deps.ts";
+import { Joi, httpErrors } from "../deps.ts";
 import { Context, ContextWithIdParam } from '../typing.ts'
 import usersService from './users.service.ts'
 
 class UsersController {
-  private userValidationSchema = {
-    name: { type: 'string', min: 3, max: 255 },
-    role: { type: 'string', enum: ['admin', 'user'], default: 'user'},
-    age:  { type: 'number', integer: true, positive: true, min: 0, max:99, convert: true },
-  }
-  private validator: FastestValidator
-
-  constructor() {
-    this.validator = new FastestValidator()
-  }
+  private userValidationSchema = Joi.object({
+    name: Joi.string(),
+    role: Joi.string().valid('admin', 'user').default('user'),
+    age: Joi.number().min(0).max(200),
+  })
 
   // GET /users
   async getAll(context: Context) {
@@ -35,15 +30,9 @@ class UsersController {
   // POST /users
   async add(context: Context) {
     const payload = await (context.request.body()).value
+    const data = await this.userValidationSchema.validateAsync(payload)
 
-    const check = this.validator.compile(this.userValidationSchema)
-    const isValid = check(payload)
-
-    if (isValid !== true) {
-      throw new httpErrors.BadRequest('Validation Error')
-    }
-
-    const user = await usersService.add(payload)
+    const user = await usersService.add(data)
 
     context.response.status = 201
     context.response.body = user
@@ -58,7 +47,11 @@ class UsersController {
   }
 
   // PATCH /users/:id
-  update(context: ContextWithIdParam) {
+  async update(context: ContextWithIdParam) {
+    // const userId = this.getUserId(context)
+    // const body = await (context.request.body()).value
+    // const payload = this.validatePayload<InsertableUser>(body, this.userValidationSchema)
+
     context.response.body = 'Update user'
   }
 
@@ -66,15 +59,9 @@ class UsersController {
   async replace(context: ContextWithIdParam) {
     const userId = this.getUserId(context)
     const payload = await (context.request.body()).value
+    const data = await this.userValidationSchema.validateAsync(payload)
 
-    const check = this.validator.compile(this.userValidationSchema)
-    const isValid = check(payload)
-
-    if (isValid !== true) {
-      throw new httpErrors.BadRequest('Validation Error')
-    }
-
-    const user = await usersService.replace(userId, payload)
+    const user = await usersService.replace(userId, data)
 
     context.response.body = user
   }

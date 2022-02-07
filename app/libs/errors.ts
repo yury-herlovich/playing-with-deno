@@ -9,7 +9,10 @@ export async function errorHandler(ctx: Context, next: Function) {
 
     let error: HttpError = err
 
-    if (!isHttpError(err)) {
+    if (err.name === 'ValidationError') {
+      // TODO: parse validations errors
+      error = new httpErrors.BadRequest('Validation error')
+    } else if (!isHttpError(err)) {
       error = new httpErrors.InternalServerError('Internal server error')
     }
 
