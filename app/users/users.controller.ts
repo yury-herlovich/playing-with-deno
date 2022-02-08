@@ -4,7 +4,7 @@ import usersService from './users.service.ts'
 
 class UsersController {
   private userValidationSchema = Joi.object({
-    name: Joi.string(),
+    name: Joi.string().when('$method', { is: 'patch', then: Joi.optional(), otherwise: Joi.required() }),
     role: Joi.string().valid('admin', 'user').default('user'),
     age: Joi.number().min(0).max(200),
   })
@@ -48,16 +48,20 @@ class UsersController {
 
   // PATCH /users/:id
   async update(context: ContextWithIdParam) {
-    // const userId = this.getUserId(context)
-    // const body = await (context.request.body()).value
-    // const payload = this.validatePayload<InsertableUser>(body, this.userValidationSchema)
+    const userId = this.getUserId(context)
 
-    context.response.body = 'Update user'
+    const payload = await (context.request.body()).value
+    const data = await this.userValidationSchema.validateAsync(payload, { context: { method: 'patch' } })
+
+    const user = await usersService.update(userId, data)
+
+    context.response.body = user
   }
 
   // PUT /users/:id
   async replace(context: ContextWithIdParam) {
     const userId = this.getUserId(context)
+
     const payload = await (context.request.body()).value
     const data = await this.userValidationSchema.validateAsync(payload)
 

@@ -33,6 +33,10 @@ class UsersModel {
   replace(userId: string, data: InsertableUser): Promise<User | undefined> {
     return this.collection.findAndModify({ _id: new Bson.ObjectId(userId) }, { update: data, new: true })
   }
+
+  update(userId: string, data: Partial<InsertableUser>): Promise<User | undefined> {
+    return this.collection.findAndModify({ _id: new Bson.ObjectId(userId) }, { update: { $set: data }, new: true })
+  }
 }
 
 export default new UsersModel()

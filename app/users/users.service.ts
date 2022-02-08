@@ -46,6 +46,16 @@ class UsersService {
 
     return user
   }
+
+  async update(userId: string, data: Partial<InsertableUser>): Promise<User> {
+    const user = await usersModel.update(userId, data)
+
+    if (!user) {
+      throw new httpErrors.BadRequest('User not found')
+    }
+
+    return user
+  }
 }
 
 export default new UsersService()
