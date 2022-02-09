@@ -5,7 +5,7 @@ export {
   HttpError,
   httpErrors,
   isHttpError,
-} from "https://deno.land/x/oak@v10.1.0/mod.ts"
+} from "https://deno.land/x/oak@v10.2.0/mod.ts"
 export { default as Joi } from 'https://esm.sh/joi@17.6.0'
 export {
   Bson,

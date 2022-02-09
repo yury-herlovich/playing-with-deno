@@ -9,7 +9,7 @@
 - [x] - add mongo
 - [x] - PUT
 - [x] - error logging
-- [ ] - PATCH
+- [x] - PATCH
 - [ ] - health-check
 - [ ] - unit and e2e testing
 - [ ] - validation errors
