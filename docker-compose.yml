@@ -3,19 +3,23 @@ services:
 
   app:
     image: denoland/deno:alpine-1.18.0
-    command: deno run --allow-net --watch app/app.ts
+    command: deno run --allow-net --allow-env --watch app/app.ts
     volumes:
       - ./:/usr/src/
     ports:
       - 8000:8000
     links:
       - db
+    env_file:
+      - .env
     working_dir: /usr/src
 
   db:
     image: mongo:4.4-focal
+    env_file:
+      - .env
     environment:
-      MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD: example
+      MONGO_INITDB_ROOT_USERNAME: ${DB_USERNAME}
+      MONGO_INITDB_ROOT_PASSWORD: ${DB_PASSWORD}
     logging:
       driver: none

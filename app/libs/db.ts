@@ -1,10 +1,13 @@
 import { MongoClient, Database, Collection } from "../deps.ts";
-import { User } from "../typing.ts";
+import { Config, User } from "../typing.ts";
 import { logError } from "./logger.ts";
+
+const dbName = Deno.env.get(Config.DB_NAME)
+const username = Deno.env.get(Config.DB_USERNAME)
+const password = Deno.env.get(Config.DB_PASSWORD)
 
 class DB {
   private client: MongoClient
-  private dbName = 'test'
   private _db?: Database
 
   constructor() {
@@ -12,8 +15,8 @@ class DB {
   }
 
   async connect() {
-    await this.client.connect('mongodb://root:example@db:27017')
-    this._db = this.client.database(this.dbName)
+    await this.client.connect(`mongodb://${username}:${password}@db:27017`)
+    this._db = this.client.database(dbName)
   }
 
   usersCollection(): Collection<User> {

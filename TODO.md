@@ -1,16 +1,17 @@
-- [x] - error handling (404, catch)
-- [x] - use classes in controller?
-- [x] - parse url params
-- [x] - add validation
-- [x] - add services
-- [x] - get all endpoint
-- [x] - DELETE
-- [x] - package management in Deno
-- [x] - add mongo
-- [x] - PUT
-- [x] - error logging
-- [x] - PATCH
-- [ ] - health-check
-- [ ] - unit and e2e testing
-- [ ] - validation errors
-- [ ] - binary, production deploy
+- [x] error handling (404, catch)
+- [x] use classes in controller?
+- [x] parse url params
+- [x] add validation
+- [x] add services
+- [x] get all endpoint
+- [x] DELETE
+- [x] package management in Deno
+- [x] add mongo
+- [x] PUT
+- [x] error logging
+- [x] PATCH
+- [x] health-check
+- [x] config
+- [ ] unit and e2e testing
+- [ ] validation errors
+- [ ] binary, production deploy
