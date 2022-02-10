@@ -2,7 +2,7 @@ import { Bson, Collection } from "../deps.ts";
 import { User, InsertableUser } from "../typing.ts";
 import db from '../libs/db.ts'
 
-class UsersModel {
+export default class UserModel {
   private _collection?: Collection<User>
 
   private get collection(): Collection<User> {
@@ -38,5 +38,3 @@ class UsersModel {
     return this.collection.findAndModify({ _id: new Bson.ObjectId(userId) }, { update: { $set: data }, new: true })
   }
 }
-
-export default new UsersModel()

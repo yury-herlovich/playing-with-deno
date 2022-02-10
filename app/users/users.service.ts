@@ -1,10 +1,16 @@
 import { httpErrors } from "../deps.ts";
 import { User, InsertableUser } from "../typing.ts";
-import usersModel from './users.model.ts'
+import UserModel from './users.model.ts'
 
-class UsersService {
+export default class UserService {
+  private userModel: UserModel
+
+  constructor() {
+    this.userModel = new UserModel()
+  }
+
   async getById(userId: string): Promise<User | undefined> {
-    const user = await usersModel.getById(userId)
+    const user = await this.userModel.getById(userId)
 
     if (!user) {
       throw new httpErrors.NotFound('user not found')
@@ -14,11 +20,11 @@ class UsersService {
   }
 
   getAll(): Promise<User[]> {
-    return usersModel.getAll()
+    return this.userModel.getAll()
   }
 
   async add(data: InsertableUser): Promise<User> {
-    const user = await usersModel.add(data)
+    const user = await this.userModel.add(data)
 
     if (!user) {
       throw new Error('something is really wrong')
@@ -28,7 +34,7 @@ class UsersService {
   }
 
   async remove(userId: string): Promise<boolean> {
-    const removeCount = await usersModel.remove(userId)
+    const removeCount = await this.userModel.remove(userId)
 
     if (removeCount < 1) {
       throw new httpErrors.BadRequest('User not found')
@@ -38,7 +44,7 @@ class UsersService {
   }
 
   async replace(userId: string, data: InsertableUser): Promise<User> {
-    const user = await usersModel.replace(userId, data)
+    const user = await this.userModel.replace(userId, data)
 
     if (!user) {
       throw new httpErrors.BadRequest('User not found')
@@ -48,7 +54,7 @@ class UsersService {
   }
 
   async update(userId: string, data: Partial<InsertableUser>): Promise<User> {
-    const user = await usersModel.update(userId, data)
+    const user = await this.userModel.update(userId, data)
 
     if (!user) {
       throw new httpErrors.BadRequest('User not found')
@@ -57,5 +63,3 @@ class UsersService {
     return user
   }
 }
-
-export default new UsersService()
