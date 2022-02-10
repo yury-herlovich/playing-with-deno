@@ -1,6 +1,6 @@
 import { Joi, httpErrors } from "../deps.ts";
 import { Context, ContextWithIdParam } from '../typing.ts'
-import UserService from './users.service.ts'
+import UserService from './user.service.ts'
 
 export default class UserController {
   private userService: UserService
@@ -16,71 +16,71 @@ export default class UserController {
   })
 
   // GET /users
-  async getAll(context: Context) {
+  async getAll(ctx: Context) {
     const users = await this.userService.getAll()
-    context.response.body = users
+    ctx.response.body = users
   }
 
   // GET /users/:id
-  async get(context: ContextWithIdParam) {
-    const userId = this.getUserId(context)
+  async get(ctx: ContextWithIdParam) {
+    const userId = this.getUserId(ctx)
     const user = await this.userService.getById(userId)
 
     if (!user) {
       throw new httpErrors.NotFound('User not found')
     }
 
-    context.response.body = user
+    ctx.response.body = user
   }
 
   // POST /users
-  async add(context: Context) {
-    const payload = await (context.request.body()).value
+  async add(ctx: Context) {
+    const payload = await (ctx.request.body()).value
     const data = await this.userValidationSchema.validateAsync(payload)
 
     const user = await this.userService.add(data)
 
-    context.response.status = 201
-    context.response.body = user
+    ctx.response.status = 201
+    ctx.response.body = user
   }
 
   // DELETE /users/:id
-  async remove(context: ContextWithIdParam) {
-    const userId = this.getUserId(context)
+  async remove(ctx: ContextWithIdParam) {
+    const userId = this.getUserId(ctx)
 
     await this.userService.remove(userId)
-    context.response.status = 204
+    ctx.response.status = 204
   }
 
   // PATCH /users/:id
-  async update(context: ContextWithIdParam) {
-    const userId = this.getUserId(context)
+  async update(ctx: ContextWithIdParam) {
+    const userId = this.getUserId(ctx)
 
-    const payload = await (context.request.body()).value
+    const payload = await (ctx.request.body()).value
     const data = await this.userValidationSchema.validateAsync(payload, { context: { method: 'patch' } })
 
     const user = await this.userService.update(userId, data)
 
-    context.response.body = user
+    ctx.response.body = user
   }
 
   // PUT /users/:id
-  async replace(context: ContextWithIdParam) {
-    const userId = this.getUserId(context)
+  async replace(ctx: ContextWithIdParam) {
+    const userId = this.getUserId(ctx)
 
-    const payload = await (context.request.body()).value
+    const payload = await (ctx.request.body()).value
     const data = await this.userValidationSchema.validateAsync(payload)
 
     const user = await this.userService.replace(userId, data)
 
-    context.response.body = user
+    ctx.response.body = user
   }
 
   /**
    * Gets and validates ID from url params
    */
-  private getUserId(context: ContextWithIdParam): string {
-    const userId = context.params?.id
+  private getUserId(ctx: ContextWithIdParam): string {
+    const userId = ctx.params?.id
 
     if (userId === undefined) {
       throw new httpErrors.BadRequest('Wrong user ID')

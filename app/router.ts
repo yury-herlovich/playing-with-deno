@@ -1,5 +1,5 @@
 import { Context, Router } from "./deps.ts";
-import UserController from './users/users.controller.ts'
+import UserController from './user/user.controller.ts'
 
 const userController = new UserController()
 

@@ -1,6 +1,6 @@
 import { httpErrors } from "../deps.ts";
 import { User, InsertableUser } from "../typing.ts";
-import UserModel from './users.model.ts'
+import UserModel from './user.model.ts'
 
 export default class UserService {
   private userModel: UserModel
