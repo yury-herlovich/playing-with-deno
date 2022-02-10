@@ -1,5 +1,6 @@
 import { MongoClient, Database, Collection } from "../deps.ts";
 import { User } from "../typing.ts";
+import { logError } from "./logger.ts";
 
 class DB {
   private client: MongoClient
@@ -21,6 +22,15 @@ class DB {
     }
 
     return this._db.collection<User>('users');
+  }
+
+  async checkDB(): Promise<boolean> {
+    try {
+      return await this._db?.listCollectionNames() ? true : false
+    } catch (err) {
+      logError(err)
+      return false
+    }
   }
 }
 

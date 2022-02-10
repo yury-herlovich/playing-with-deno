@@ -1,7 +1,9 @@
-import { Context, Router } from "./deps.ts";
+import { Router } from "./deps.ts";
 import UserController from './user/user.controller.ts'
+import HealthController from './health/health.controller.ts'
 
 const userController = new UserController()
+const healthController = new HealthController()
 
 const users = new Router()
   .get('/', userController.getAll.bind(userController))
@@ -12,7 +14,7 @@ const users = new Router()
   .put('/:id', userController.replace.bind(userController))
 
 const healthCheck = new Router()
-  .get('/', (context: Context) => context.response.body = 'health-check')
+  .get('/', healthController.check.bind(healthController))
 
 const router = new Router()
   .use("/users", users.routes(), users.allowedMethods())
