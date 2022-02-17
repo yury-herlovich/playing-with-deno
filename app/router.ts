@@ -1,8 +1,7 @@
 import { Router } from "./deps.ts";
-import UserController from './user/user.controller.ts'
+import userController from './user/user.controller.ts'
 import HealthController from './health/health.controller.ts'
 
-const userController = new UserController()
 const healthController = new HealthController()
 
 const users = new Router()

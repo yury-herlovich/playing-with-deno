@@ -1,14 +1,8 @@
 import { Joi, httpErrors } from "../deps.ts";
 import { Context, ContextWithIdParam } from '../typing.ts'
-import UserService from './user.service.ts'
+import userService from './user.service.ts'
 
-export default class UserController {
-  private userService: UserService
-
-  constructor() {
-    this.userService = new UserService()
-  }
-
+class UserController {
   private userValidationSchema = Joi.object({
     name: Joi.string().when('$method', { is: 'patch', then: Joi.optional(), otherwise: Joi.required() }),
     role: Joi.string().valid('admin', 'user').default('user'),
@@ -17,14 +11,14 @@ export default class UserController {
 
   // GET /users
   async getAll(ctx: Context) {
-    const users = await this.userService.getAll()
+    const users = await userService.getAll()
     ctx.response.body = users
   }
 
   // GET /users/:id
   async get(ctx: ContextWithIdParam) {
     const userId = this.getUserId(ctx)
-    const user = await this.userService.getById(userId)
+    const user = await userService.getById(userId)
 
     if (!user) {
       throw new httpErrors.NotFound('User not found')
@@ -38,7 +32,7 @@ export default class UserController {
     const payload = await (ctx.request.body()).value
     const data = await this.userValidationSchema.validateAsync(payload)
 
-    const user = await this.userService.add(data)
+    const user = await userService.add(data)
 
     ctx.response.status = 201
     ctx.response.body = user
@@ -48,7 +42,7 @@ export default class UserController {
   async remove(ctx: ContextWithIdParam) {
     const userId = this.getUserId(ctx)
 
-    await this.userService.remove(userId)
+    await userService.remove(userId)
     ctx.response.status = 204
   }
 
@@ -59,7 +53,7 @@ export default class UserController {
     const payload = await (ctx.request.body()).value
     const data = await this.userValidationSchema.validateAsync(payload, { context: { method: 'patch' } })
 
-    const user = await this.userService.update(userId, data)
+    const user = await userService.update(userId, data)
 
     ctx.response.body = user
   }
@@ -71,7 +65,7 @@ export default class UserController {
     const payload = await (ctx.request.body()).value
     const data = await this.userValidationSchema.validateAsync(payload)
 
-    const user = await this.userService.replace(userId, data)
+    const user = await userService.replace(userId, data)
 
     ctx.response.body = user
   }
@@ -89,3 +83,5 @@ export default class UserController {
     return userId
   }
 }
+
+export default new UserController()

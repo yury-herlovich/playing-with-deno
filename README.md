@@ -3,5 +3,5 @@
 ### commands
 - start app - `make run`
 - debugging - `make debug`
-- tests -
+- tests - `make test-app`
 - production -

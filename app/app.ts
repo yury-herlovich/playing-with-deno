@@ -21,3 +21,5 @@ app.use(routeNotFound)
 
 await db.connect()
 await app.listen({ port: 8000 })
+
+export default app

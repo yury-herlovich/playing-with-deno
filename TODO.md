@@ -12,6 +12,7 @@
 - [x] PATCH
 - [x] health-check
 - [x] config
-- [ ] unit and e2e testing
+- [ ] unit testing
+- [ ] e2e testing
 - [ ] validation errors
 - [ ] binary, production deploy
