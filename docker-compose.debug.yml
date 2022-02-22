@@ -1,7 +1,0 @@
-version: "3.8"
-services:
-
-  app:
-    command: deno run --inspect-brk=0.0.0.0:9229 --allow-net --allow-env app/app.ts
-    ports:
-      - 9229:9229
