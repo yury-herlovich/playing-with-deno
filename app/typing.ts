@@ -1,11 +1,9 @@
-import { Bson, Context as OakContext } from './deps.ts'
+import { Bson } from './deps.ts'
 
-// general Context without params
-export type Context = OakContext
-// generic Context
-export type ContextWithParams<T> = OakContext & { params: T }
-// Context with id in params
-export type ContextWithIdParam = ContextWithParams<{ id: string }>
+export {
+  type OakRouterContext as RouterContext,
+  type OakContext,
+} from './deps.ts'
 
 export interface User {
   _id: Bson.ObjectId;

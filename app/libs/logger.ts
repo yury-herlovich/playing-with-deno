@@ -1,7 +1,7 @@
-import { Context } from "../deps.ts";
+import { OakContext } from "../typing.ts";
 
 // Logger
-export async function logger (ctx: Context, next: Function) {
+export async function logger (ctx: OakContext, next: Function) {
   const start = Date.now()
   await next()
 

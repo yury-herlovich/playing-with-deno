@@ -2,4 +2,6 @@ version: "3.8"
 services:
 
   app:
-    command: deno test --allow-env --allow-net --watch ./test
+    command: deno test --allow-env --allow-net --watch --inspect-brk=0.0.0.0:9229 ./test
+    ports:
+      - 9229:9229

@@ -1,7 +1,8 @@
-import { Context, HttpError, httpErrors, isHttpError } from '../deps.ts'
+import { HttpError, httpErrors, isHttpError } from '../deps.ts'
+import { OakContext } from '../typing.ts'
 import { logError } from "./logger.ts";
 
-export async function errorHandler(ctx: Context, next: Function) {
+export async function errorHandler(ctx: OakContext, next: Function) {
   try {
     await next()
   } catch (err) {
@@ -24,6 +25,6 @@ export async function errorHandler(ctx: Context, next: Function) {
   }
 }
 
-export function routeNotFound(_ctx: Context, _next: Function) {
+export function routeNotFound(_ctx: OakContext, _next: Function) {
   throw new httpErrors.NotFound('Endpoint not found')
 }

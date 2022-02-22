@@ -1,12 +1,14 @@
 export {
   Application,
   Router,
-  Context,
   HttpError,
   httpErrors,
   isHttpError,
   testing,
-} from 'https://deno.land/x/oak@v10.2.0/mod.ts'
+  Request as OakRequest,
+  Context as OakContext,
+  type RouterContext as OakRouterContext,
+} from 'https://deno.land/x/oak@v10.2.1/mod.ts'
 export { default as Joi } from 'https://esm.sh/joi@17.6.0'
 export {
   Bson,

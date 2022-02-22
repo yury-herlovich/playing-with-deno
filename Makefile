@@ -4,5 +4,7 @@ run:
 debug:
 	docker-compose -f docker-compose.yml -f docker-compose.debug.yml up
 
-test-app:
+run-tests:
 	docker-compose -f docker-compose.yml -f docker-compose.test.yml up
+
+debug-test:

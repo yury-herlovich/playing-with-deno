@@ -1,5 +1,5 @@
 import { Joi, httpErrors } from "../deps.ts";
-import { Context, ContextWithIdParam } from '../typing.ts'
+import { RouterContext } from '../typing.ts'
 import userService from './user.service.ts'
 
 class UserController {
@@ -10,13 +10,13 @@ class UserController {
   })
 
   // GET /users
-  async getAll(ctx: Context) {
+  async getAll(ctx: RouterContext<'/'>) {
     const users = await userService.getAll()
     ctx.response.body = users
   }
 
   // GET /users/:id
-  async get(ctx: ContextWithIdParam) {
+  async get(ctx: RouterContext<'/:id'>) {
     const userId = this.getUserId(ctx)
     const user = await userService.getById(userId)
 
@@ -28,7 +28,8 @@ class UserController {
   }
 
   // POST /users
-  async add(ctx: Context) {
+  async add(ctx: RouterContext<'/'>) {
+    console.log(ctx.request)
     const payload = await (ctx.request.body()).value
     const data = await this.userValidationSchema.validateAsync(payload)
 
@@ -39,7 +40,7 @@ class UserController {
   }
 
   // DELETE /users/:id
-  async remove(ctx: ContextWithIdParam) {
+  async remove(ctx: RouterContext<'/:id'>) {
     const userId = this.getUserId(ctx)
 
     await userService.remove(userId)
@@ -47,7 +48,7 @@ class UserController {
   }
 
   // PATCH /users/:id
-  async update(ctx: ContextWithIdParam) {
+  async update(ctx: RouterContext<'/:id'>) {
     const userId = this.getUserId(ctx)
 
     const payload = await (ctx.request.body()).value
@@ -59,7 +60,7 @@ class UserController {
   }
 
   // PUT /users/:id
-  async replace(ctx: ContextWithIdParam) {
+  async replace(ctx: RouterContext<'/:id'>) {
     const userId = this.getUserId(ctx)
 
     const payload = await (ctx.request.body()).value
@@ -73,8 +74,8 @@ class UserController {
   /**
    * Gets and validates ID from url params
    */
-  private getUserId(ctx: ContextWithIdParam): string {
-    const userId = ctx.params?.id
+  private getUserId(ctx: RouterContext<'/:id'>): string {
+    const userId = ctx.params.id
 
     if (userId === undefined) {
       throw new httpErrors.BadRequest('Wrong user ID')
