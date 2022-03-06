@@ -1,8 +1,8 @@
 import { ObjectId, Rhum, testing, asserts, sinon } from '../dev_deps.ts'
-import userController from '../../app/user/user.controller.ts'
-import userService from '../../app/user/user.service.ts'
-import { InsertableUser, User } from "../../app/typing.ts";
-import { HttpError, OakRequest } from "../../app/deps.ts";
+import userController from '../../src/user/user.controller.ts'
+import userService from '../../src/user/user.service.ts'
+import { User } from "../../src/typing.ts";
+import { HttpError } from "../../src/deps.ts";
 
 Rhum.testPlan('user controller', () => {
   Rhum.testSuite("#get", () => {

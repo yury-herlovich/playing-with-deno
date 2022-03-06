@@ -6,7 +6,7 @@
   },
   "lint": {
     "files": {
-      "include": ["app/"],
+      "include": ["src/"],
       "exclude": []
     },
     "rules": {
@@ -17,7 +17,7 @@
   },
   "fmt": {
     "files": {
-      "include": ["app/"],
+      "include": ["src/"],
       "exclude": [""]
     },
     "options": {
