@@ -12,3 +12,6 @@ tests-watch:
 
 tests-debug:
 	docker-compose run -p 9229:9229 --rm app deno test --allow-env --allow-net --watch --inspect-br:9229 ./test
+
+compile:
+	deno compile --allow-env --allow-net ./src/app.ts app
