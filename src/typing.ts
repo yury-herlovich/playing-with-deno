@@ -17,7 +17,7 @@ export type InsertableUser = Omit<User, '_id'>
 export enum Config {
   APP_VERSION = 'APP_VERSION',
   ENV = 'ENV',
-  DB_HOST = 'DB_HOST',
+  DB_CONN = 'DB_CONN',
   DB_NAME = 'DB_NAME',
   DB_USERNAME = 'DB_USERNAME',
   DB_PASSWORD = 'DB_PASSWORD',

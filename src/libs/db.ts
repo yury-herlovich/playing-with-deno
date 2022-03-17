@@ -5,7 +5,9 @@ import { logError } from "./logger.ts";
 const dbName = Deno.env.get(Config.DB_NAME)
 const username = Deno.env.get(Config.DB_USERNAME)
 const password = Deno.env.get(Config.DB_PASSWORD)
-const host = Deno.env.get(Config.DB_HOST)
+const connection = (Deno.env.get(Config.DB_CONN) ?? '')
+  .replace('{USER}', username ?? '')
+  .replace('{PASSWORD}', password ?? '')
 
 class DB {
   private client: MongoClient
@@ -16,7 +18,7 @@ class DB {
   }
 
   async connect() {
-    await this.client.connect(`mongodb://${username}:${password}@${host}:27017`)
+    await this.client.connect(connection)
     this._db = this.client.database(dbName)
   }
 

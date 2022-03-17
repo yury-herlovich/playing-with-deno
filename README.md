@@ -5,7 +5,8 @@
 - debugging - `make debug`
 - tests - `make test-app` - not finished, it needs more investigations how to use oak typings
 - compile - `make compile`
-- run binary - `docker-compose up -d db && export $(cat .prod.env | xargs) && ./app`
+- run binary:
+  - `docker-compose up -d db && export $(cat .env | xargs) && ./app`
 
 ## Endpoint
 ### GET /health-check

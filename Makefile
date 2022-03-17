@@ -15,3 +15,6 @@ tests-debug:
 
 compile:
 	deno compile --allow-env --allow-net ./src/app.ts app
+
+compile-linux:
+	deno compile --allow-env --allow-net --target x86_64-unknown-linux-gnu ./src/app.ts app

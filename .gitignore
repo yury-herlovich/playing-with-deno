@@ -3,3 +3,4 @@
 !/.vscode/settings.json
 cov_profile
 /app
+/.prod.env
