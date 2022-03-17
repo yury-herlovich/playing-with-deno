@@ -29,7 +29,6 @@ class UserController {
 
   // POST /users
   async add(ctx: RouterContext<'/'>) {
-    console.log(ctx.request)
     const payload = await (ctx.request.body()).value
     const data = await this.userValidationSchema.validateAsync(payload)
 
