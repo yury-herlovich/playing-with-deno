@@ -26,5 +26,17 @@
       "singleQuote": true,
       "proseWrap": "preserve"
     }
+  },
+  "tasks": {
+    "docker": "docker-compose up",
+    "docker:debug": "docker-compose run -p 8000:8000 -p 9229:9229 --rm app deno run --inspect-brk=0.0.0.0:9229 --allow-net --allow-env src/app.ts",
+    "docker:test": "docker-compose run --rm app deno test --allow-env --allow-net ./test",
+    "docker:test:watch": "docker-compose run --rm app deno test --allow-env --allow-net --watch ./test",
+    "docker:test:debug": "docker-compose run -p 9229:9229 --rm app deno test --allow-env --allow-net --watch --inspect-br:9229 ./test",
+    "docker:build:release": "docker build -t deno-test:release -f ./docker/Dockerfile .",
+    "docker:release": "docker run --env-file .prod.env -p 8000:8000 deno-test:release",
+    "test": "deno task docker:test",
+    "compile:linux": "deno compile --allow-env --allow-net --target x86_64-unknown-linux-gnu ./src/app.ts app",
+    "compile:apple": "deno compile --allow-env --allow-net --target x86_64-apple-darwin ./src/app.ts app"
   }
 }
