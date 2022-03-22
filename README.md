@@ -1,12 +1,20 @@
 # Playing with Deno
 
-## Commands
+## Requirements
+- Deno 1.20.0+
+- VSCode with deno extention or other code editor
+- Docker and docker-compose
+
+## Available commands
 - start app - `make run`
 - debugging - `make debug`
 - tests - `make test-app` - not finished, it needs more investigations how to use oak typings
-- compile - `make compile`
-- run binary:
-  - `docker-compose up -d db && export $(cat .env | xargs) && ./app`
+- compile - `make compile` or  `make compile-linux`
+- build release docker image - `make build-release`
+- start release docker image - `make run-release`
+
+### Tricks
+- extract and export env variables and start app - `export $(xargs --arg-file=.prod.env) && ./app`
 
 ## Endpoint
 ### GET /health-check

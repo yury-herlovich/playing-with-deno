@@ -1,0 +1,48 @@
+@HOST = http://localhost:8000
+@id = 623a0b767362574faa9b9f23
+
+### GET /health-check
+GET {{HOST}}/health-check
+
+
+### GET /users
+GET {{HOST}}/users
+
+
+### GET /users/:id
+GET {{HOST}}/users/{{id}}
+
+
+### POST /users
+POST {{HOST}}/users
+Content-Type: application/json
+
+{
+  "name": "Yury",
+  "age": 30,
+  "role": "admin"
+}
+
+
+### PATCH /users/:ID
+PATCH {{HOST}}/users/{{id}}
+Content-Type: application/json
+
+{
+  "name": "Vova",
+  "role": "user"
+}
+
+
+### PUT /users/:ID
+PUT {{HOST}}/users/{{id}}
+Content-Type: application/json
+
+{
+  "name": "Layth",
+  "age": 30
+}
+
+
+### DELETE /users/:id
+DELETE {{HOST}}/users/{{id}}
