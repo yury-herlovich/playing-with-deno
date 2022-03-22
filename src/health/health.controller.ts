@@ -1,5 +1,5 @@
-import { Config, RouterContext } from "../typing.ts";
-import db from '../libs/db.ts'
+import { Config, RouterContext } from '../typing.ts';
+import db from '../libs/db.ts';
 
 export default class HealthController {
   async check(ctx: RouterContext<'/'>) {
@@ -8,6 +8,6 @@ export default class HealthController {
       environment: Deno.env.get(Config.ENV),
       status: 'ok',
       dbStatus: await db.checkDB() ? 'ok' : 'error',
-    }
+    };
   }
 }

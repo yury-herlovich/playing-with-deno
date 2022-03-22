@@ -1,18 +1,15 @@
-import { Bson } from './deps.ts'
+import { Bson } from './deps.ts';
 
-export {
-  type OakRouterContext as RouterContext,
-  type OakContext,
-} from './deps.ts'
+export { type OakContext, type OakRouterContext as RouterContext } from './deps.ts';
 
 export interface User {
   _id: Bson.ObjectId;
-  name: string
-  role: 'admin' | 'user'
-  age: number
+  name: string;
+  role: 'admin' | 'user';
+  age: number;
 }
 
-export type InsertableUser = Omit<User, '_id'>
+export type InsertableUser = Omit<User, '_id'>;
 
 export enum Config {
   APP_VERSION = 'APP_VERSION',
