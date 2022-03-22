@@ -4,6 +4,9 @@ import { logger } from './libs/logger.ts';
 import router from './router.ts';
 import db from './libs/db.ts';
 
+// listen and exit on ctrl+c
+Deno.addSignalListener('SIGINT', () => Deno.exit());
+
 const app = new Application();
 
 // Logger
@@ -20,6 +23,9 @@ app.use(router.allowedMethods());
 app.use(routeNotFound);
 
 await db.connect();
-await app.listen({ port: 8000 });
+
+app.addEventListener('listen', ({ port }) => console.log(`Listening on port ${port}`));
+
+app.listen({ port: 8000 });
 
 export default app;

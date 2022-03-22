@@ -1,5 +1,5 @@
 @HOST = http://localhost:8000
-@id = 623a0b767362574faa9b9f23
+@id = 6233a141aa8b31fa1e04d183
 
 ### GET /health-check
 GET {{HOST}}/health-check
@@ -19,7 +19,7 @@ Content-Type: application/json
 
 {
   "name": "Yury",
-  "age": 30,
+  "email": "yury@example.com",
   "role": "admin"
 }
 
@@ -29,7 +29,7 @@ PATCH {{HOST}}/users/{{id}}
 Content-Type: application/json
 
 {
-  "name": "Vova",
+  "name": "Yury",
   "role": "user"
 }
 
@@ -39,8 +39,8 @@ PUT {{HOST}}/users/{{id}}
 Content-Type: application/json
 
 {
-  "name": "Layth",
-  "age": 30
+  "name": "Yury",
+  "email": "yury@example.com"
 }
 
 

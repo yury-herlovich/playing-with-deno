@@ -5,8 +5,8 @@ export { type OakContext, type OakRouterContext as RouterContext } from './deps.
 export interface User {
   _id: Bson.ObjectId;
   name: string;
+  email: string;
   role: 'admin' | 'user';
-  age: number;
 }
 
 export type InsertableUser = Omit<User, '_id'>;

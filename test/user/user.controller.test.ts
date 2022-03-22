@@ -13,7 +13,7 @@ Rhum.testPlan('user controller', () => {
     })
 
     Rhum.testCase('should pass validation anc call service', async () => {
-      const user: User = { _id: new ObjectId(), name: 'Yury', role: 'user', age: 30 }
+      const user: User = { _id: new ObjectId(), name: 'Yury', role: 'user', email: 'yury@example.com' }
       sandbox.stub(userService, 'getById').returns(Promise.resolve(user))
       const ctx: any = testing.createMockContext({ path: '/users', params: { id: user._id.toHexString() }})
 
@@ -37,7 +37,7 @@ Rhum.testPlan('user controller', () => {
     })
 
     Rhum.testCase('should return data from service', async () => {
-      const user: User = { _id: new ObjectId(), name: 'Yury', role: 'user', age: 30 }
+      const user: User = { _id: new ObjectId(), name: 'Yury', role: 'user', email: 'yury@example.com' }
       sandbox.stub(userService, 'getAll').returns(Promise.resolve([user]))
       const ctx: any = testing.createMockContext({ path: '/users' })
 
@@ -54,7 +54,7 @@ Rhum.testPlan('user controller', () => {
   //   })
 
   //   Rhum.testCase('should pass validation', async () => {
-  //     const user: InsertableUser = { name: 'Yury', role: 'user', age: 30 }
+  //     const user: InsertableUser = { name: 'Yury', role: 'user', email: 'yury@example.com' }
   //     const userId = new ObjectId()
 
   //     sandbox.stub(userService, 'add').returns(Promise.resolve({ ...user, _id: userId, params: user as any }))

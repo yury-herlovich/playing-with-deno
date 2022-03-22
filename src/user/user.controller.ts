@@ -10,7 +10,7 @@ class UserController {
       otherwise: Joi.required(),
     }),
     role: Joi.string().valid('admin', 'user').default('user'),
-    age: Joi.number().min(0).max(200),
+    email: Joi.string().lowercase().min(5),
   });
 
   // GET /users

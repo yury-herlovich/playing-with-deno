@@ -2,8 +2,9 @@
 
 ## Requirements
 - Deno 1.20.0+
-- VSCode with deno extention or other code editor
+- VSCode with deno extension or other code editor
 - Docker and docker-compose
+- Bonus: VSCode extension Rest Client to support requests from text file (api.http)
 
 ## Available commands
 - start app - `make run`
@@ -14,7 +15,7 @@
 - start release docker image - `make run-release`
 
 ### Tricks
-- extract and export env variables and start app - `export $(xargs --arg-file=.prod.env) && ./app`
+- extract and export env variables and start app - `export $(xargs --arg-file=.env) && ./app`
 
 ## Endpoint
 ### GET /health-check
@@ -27,10 +28,10 @@
 `curl http://localhost:8000/users/:id`
 
 ### POST /users
-`curl --request POST -d '{ "name": "Yury", "age": "30", "role": "admin" }' -H 'Content-Type: application/json' "http://localhost:8000/users"`
+`curl --request POST -d '{ "name": "Yury", "email": "yury@example.com", "role": "admin" }' -H 'Content-Type: application/json' "http://localhost:8000/users"`
 
 ### PUT /users/:id
-`curl --request PUT -d '{ "name": "Yury", "age": "30", "role": "admin" }' -H 'Content-Type: application/json' "http://localhost:8000/users/:id"`
+`curl --request PUT -d '{ "name": "Yury", "email": "yury@example.com", "role": "admin" }' -H 'Content-Type: application/json' "http://localhost:8000/users/:id"`
 
 ### PATCH /users/:id
 `curl --request PATCH -d '{ "role": "user" }' -H 'Content-Type: application/json' "http://localhost:8000/users/:id"`
