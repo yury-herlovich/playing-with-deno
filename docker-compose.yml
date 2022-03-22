@@ -2,7 +2,7 @@ version: "3.8"
 services:
 
   app:
-    image: denoland/deno:alpine-1.18.0
+    image: denoland/deno:alpine-1.20.1
     command: deno run --allow-net --allow-env --watch src/app.ts
     volumes:
       - ./:/usr/src/

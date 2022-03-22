@@ -18,3 +18,9 @@ compile:
 
 compile-linux:
 	deno compile --allow-env --allow-net --target x86_64-unknown-linux-gnu ./src/app.ts app
+
+build-image:
+	docker build -t deno-test:release -f ./docker/Dockerfile .
+
+run-release:
+	docker run --env-file .prod.env -p 8000:8000 -d deno-test:release
