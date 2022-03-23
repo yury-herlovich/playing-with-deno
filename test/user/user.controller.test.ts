@@ -1,27 +1,27 @@
-import { asserts, Bson, Rhum, sinon, testing } from '../dev_deps.ts';
-import userController from '../../src/user/user.controller.ts';
-import userService from '../../src/user/user.service.ts';
-import { User } from '../../src/typing.ts';
-import { HttpError } from '../../src/deps.ts';
+import { asserts, Bson, Rhum, sinon, testing } from "../dev_deps.ts";
+import userController from "../../src/user/user.controller.ts";
+import userService from "../../src/user/user.service.ts";
+import { User } from "../../src/typing.ts";
+import { HttpError } from "../../src/deps.ts";
 
-Rhum.testPlan('user controller', () => {
-  Rhum.testSuite('#get', () => {
-    let sandbox = sinon.createSandbox();
+Rhum.testPlan("user controller", () => {
+  Rhum.testSuite("#get", () => {
+    const sandbox = sinon.createSandbox();
 
     Rhum.afterEach(() => {
       sandbox.restore();
     });
 
-    Rhum.testCase('should pass validation anc call service', async () => {
+    Rhum.testCase("should pass validation anc call service", async () => {
       const user: User = {
         _id: new Bson.ObjectId(),
-        name: 'Yury',
-        role: 'user',
-        email: 'yury@example.com',
+        name: "Yury",
+        role: "user",
+        email: "yury@example.com",
       };
-      sandbox.stub(userService, 'getById').returns(Promise.resolve(user));
+      sandbox.stub(userService, "getById").returns(Promise.resolve(user));
       const ctx: any = testing.createMockContext({
-        path: '/users',
+        path: "/users",
         params: { id: user._id.toHexString() },
       });
 
@@ -29,37 +29,37 @@ Rhum.testPlan('user controller', () => {
       Rhum.asserts.assertEquals(ctx.response.body, user);
     });
 
-    Rhum.testCase('should throw an error when user not found', async () => {
-      sandbox.stub(userService, 'getById').returns(Promise.resolve(undefined));
+    Rhum.testCase("should throw an error when user not found", async () => {
+      sandbox.stub(userService, "getById").returns(Promise.resolve(undefined));
       const ctx: any = testing.createMockContext({
-        path: '/users',
+        path: "/users",
         params: { id: new Bson.ObjectId().toHexString() },
       });
 
       await asserts.assertRejects(
         () => userController.get(ctx),
         HttpError,
-        'User not found',
+        "User not found",
       );
     });
   });
 
-  Rhum.testSuite('#getAll', () => {
-    let sandbox = sinon.createSandbox();
+  Rhum.testSuite("#getAll", () => {
+    const sandbox = sinon.createSandbox();
 
     Rhum.afterEach(() => {
       sandbox.restore();
     });
 
-    Rhum.testCase('should return data from service', async () => {
+    Rhum.testCase("should return data from service", async () => {
       const user: User = {
         _id: new Bson.ObjectId(),
-        name: 'Yury',
-        role: 'user',
-        email: 'yury@example.com',
+        name: "Yury",
+        role: "user",
+        email: "yury@example.com",
       };
-      sandbox.stub(userService, 'getAll').returns(Promise.resolve([user]));
-      const ctx: any = testing.createMockContext({ path: '/users' });
+      sandbox.stub(userService, "getAll").returns(Promise.resolve([user]));
+      const ctx: any = testing.createMockContext({ path: "/users" });
 
       await userController.getAll(ctx);
       Rhum.asserts.assertEquals(ctx.response.body, [user]);
@@ -67,7 +67,7 @@ Rhum.testPlan('user controller', () => {
   });
 
   // Rhum.testSuite("#add", () => {
-  //   let sandbox = sinon.createSandbox()
+  //   const sandbox = sinon.createSandbox()
 
   //   Rhum.afterEach(() => {
   //     sandbox.restore()
