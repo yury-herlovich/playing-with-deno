@@ -10,17 +10,16 @@
 
 ## Available commands
 
-- start app - `make run`
-- debugging - `make debug`
-- tests - `make test-app` - not finished, it needs more investigations how to
-  use oak typings
-- compile - `make compile` or `make compile-linux`
-- build release docker image - `make build-release`
-- start release docker image - `make run-release`
+- start app - `deno task docker`
+- debugging - `deno task docker:debug`
+- tests - `deno task test`
+- compile - `deno task compile:apple` or `deno task compile:linux`
+- build release docker image - `deno task docker:build:release`
+- start release docker image - `deno task docker:release`
 
 ### Tricks
 
-- extract and export env variables and start app -
+- extract and export env variables and start app (con be error with Mongo connection, not solved yet for local DB) -
   `export $(xargs --arg-file=.env) && ./app`
 
 ## Endpoint
