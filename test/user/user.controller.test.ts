@@ -26,7 +26,7 @@ Rhum.testPlan("user controller", () => {
       });
 
       await userController.get(ctx);
-      Rhum.asserts.assertEquals(ctx.response.body, user);
+      asserts.assertEquals(ctx.response.body, user);
     });
 
     Rhum.testCase("should throw an error when user not found", async () => {
@@ -62,7 +62,7 @@ Rhum.testPlan("user controller", () => {
       const ctx: any = testing.createMockContext({ path: "/users" });
 
       await userController.getAll(ctx);
-      Rhum.asserts.assertEquals(ctx.response.body, [user]);
+      asserts.assertEquals(ctx.response.body, [user]);
     });
   });
 
